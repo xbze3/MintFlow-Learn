@@ -40,7 +40,6 @@ function NavBar() {
 
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setSearchQuery("");
     };
 
     return (
