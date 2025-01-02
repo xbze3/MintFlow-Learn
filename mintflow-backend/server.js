@@ -4,7 +4,6 @@ const cors = require("cors");
 
 const app = express();
 
-// Connect to MongoDB
 mongoose
     .connect("mongodb://localhost:27017/mintflow-db", {
         useNewUrlParser: true,
@@ -13,7 +12,6 @@ mongoose
     .then(() => console.log("Connected to MongoDB"))
     .catch((error) => console.error("Error connecting to MongoDB:", error));
 
-// Define the deck schema
 const deckSchema = new mongoose.Schema({
     courseCode: { type: String, required: true },
     topicName: { type: String, required: true },
@@ -21,20 +19,17 @@ const deckSchema = new mongoose.Schema({
     cards: [{ type: String }],
 });
 
-// Create the deck model
 const Deck = mongoose.model("Deck", deckSchema);
 
-// Middleware setup
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
     cors({
-        origin: "*", // Replace "*" with specific domains for production
+        origin: "*",
         allowedHeaders: ["Authorization", "Content-Type"],
     })
 );
 
-// API endpoint to search decks
 app.get("/search-decks", async (req, res) => {
     const { query } = req.query;
 
