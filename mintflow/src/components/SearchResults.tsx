@@ -26,6 +26,7 @@ function SearchResults({ decks }: DeckProps) {
                         <div className="fw-bold searchHeading">
                             {deck.topicName}
                         </div>
+                        <strong>Course Code:</strong> {deck.courseCode} |{" "}
                         <strong>Course Name:</strong> {deck.courseName} |{" "}
                         <strong>Cards:</strong> {deck.cards.length}
                     </div>
