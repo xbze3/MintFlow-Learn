@@ -71,7 +71,6 @@ app.get("/get-cards", async (req, res) => {
             topicName: new RegExp(topicName, "i"),
         });
 
-        console.log(foundCards);
         res.json(foundCards);
     } catch (err) {
         console.error("Error searching cards:", err);

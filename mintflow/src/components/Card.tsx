@@ -1,38 +1,28 @@
 import "../components-css/Card.css";
 import Carousel from "react-bootstrap/Carousel";
+import { useCardData } from "./special/CardContext";
 
 function Card() {
+    const { cardData } = useCardData();
+
     return (
         <div id="card">
-            <Carousel id="carousel">
-                <Carousel.Item id="item">
-                    <div id="subitem">
-                        <h3>First slide label</h3>
-                        <p>
-                            Nulla vitae elit libero, a pharetra augue mollis
-                            interdum.
-                        </p>
-                    </div>
-                </Carousel.Item>
-                <Carousel.Item id="item">
-                    <div id="subitem">
-                        <h3>Second slide label</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                        </p>
-                    </div>
-                </Carousel.Item>
-                <Carousel.Item id="item">
-                    <div id="subitem">
-                        <h3>Third slide label</h3>
-                        <p>
-                            Praesent commodo cursus magna, vel scelerisque nisl
-                            consectetur.
-                        </p>
-                    </div>
-                </Carousel.Item>
-            </Carousel>
+            {cardData.length === 0 ? (
+                <div id="select-deck-message">
+                    <h3>Select a Deck</h3>
+                </div>
+            ) : (
+                <Carousel id="carousel">
+                    {cardData.map((card) => (
+                        <Carousel.Item id="item" key={card._id}>
+                            <div id="subitem">
+                                <h3>{card.question}</h3>
+                                <p>{card.answer}</p>
+                            </div>
+                        </Carousel.Item>
+                    ))}
+                </Carousel>
+            )}
         </div>
     );
 }

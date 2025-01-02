@@ -1,6 +1,6 @@
 import ListGroup from "react-bootstrap/ListGroup";
 import "../components-css/SearchResults.css";
-import { useState } from "react";
+import { useCardData } from "./special/CardContext";
 
 interface Deck {
     _id: string;
@@ -15,7 +15,7 @@ interface DeckProps {
 }
 
 function SearchResults({ decks }: DeckProps) {
-    const [cardData, setcardData] = useState<Deck[]>([]);
+    const { setCardData } = useCardData();
 
     const handleSelectDeck = async (topicName: string) => {
         try {
@@ -28,12 +28,10 @@ function SearchResults({ decks }: DeckProps) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            setcardData(data);
+            setCardData(data);
         } catch (error) {
             console.error("Error fetching decks:", error);
         }
-
-        console.log(cardData);
     };
 
     return (

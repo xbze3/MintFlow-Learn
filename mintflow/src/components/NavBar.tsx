@@ -38,6 +38,11 @@ function NavBar() {
         fetchDecks();
     }, [searchQuery]);
 
+    const handleSearchSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setSearchQuery("");
+    };
+
     return (
         <>
             <Navbar expand="lg" className="bg-body-tertiary">
@@ -58,17 +63,13 @@ function NavBar() {
                             style={{ maxHeight: "100px" }}
                             navbarScroll
                         ></Nav>
-                        <Form
-                            className="d-flex"
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                            }}
-                        >
+                        <Form className="d-flex" onSubmit={handleSearchSubmit}>
                             <Form.Control
                                 type="search"
                                 placeholder="Course Code"
                                 className="me-2"
                                 aria-label="Search"
+                                value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                             <Button variant="outline-success">Search</Button>
