@@ -19,7 +19,14 @@ const deckSchema = new mongoose.Schema({
     cards: [{ type: String }],
 });
 
+const cardSchema = new mongoose.Schema({
+    question: { type: String, required: true },
+    answer: { type: String, required: true },
+    topicName: { type: String, required: true },
+});
+
 const Deck = mongoose.model("Deck", deckSchema);
+const Card = mongoose.model("Card", cardSchema);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +55,26 @@ app.get("/search-decks", async (req, res) => {
         res.json(foundDecks);
     } catch (err) {
         console.error("Error searching decks:", err);
+        res.status(500).send("Server error");
+    }
+});
+
+app.get("/get-cards", async (req, res) => {
+    const { topicName } = req.query;
+
+    if (!topicName || topicName.trim() === "") {
+        return res.status(400).json({ error: "Topic Name is required" });
+    }
+
+    try {
+        const foundCards = await Card.find({
+            topicName: new RegExp(topicName, "i"),
+        });
+
+        console.log(foundCards);
+        res.json(foundCards);
+    } catch (err) {
+        console.error("Error searching cards:", err);
         res.status(500).send("Server error");
     }
 });

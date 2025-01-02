@@ -47,7 +47,7 @@ function NavBar() {
                             src={logo}
                             height="45"
                             className="d-inline-block align-top"
-                            alt="Your Logo"
+                            alt="banner"
                             id="banner"
                         />
                     </Navbar.Brand>
@@ -58,7 +58,12 @@ function NavBar() {
                             style={{ maxHeight: "100px" }}
                             navbarScroll
                         ></Nav>
-                        <Form className="d-flex">
+                        <Form
+                            className="d-flex"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                            }}
+                        >
                             <Form.Control
                                 type="search"
                                 placeholder="Course Code"
