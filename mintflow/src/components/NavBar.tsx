@@ -5,8 +5,44 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../assets/mintflowBanner.png";
 import "../components-css/NavBar.css";
+import { useState, useEffect } from "react";
 
 function NavBar() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [decks, setDecks] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (searchQuery.trim() === "") {
+            setDecks([]);
+            return;
+        }
+
+        const fetchDecks = async () => {
+            setLoading(true);
+            try {
+                const response = await fetch(
+                    `http://localhost:8081/search-decks?query=${encodeURIComponent(
+                        searchQuery
+                    )}`
+                );
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setDecks(data);
+            } catch (error) {
+                console.error("Error fetching decks:", error);
+            } finally {
+                setLoading(false);
+            }
+
+            console.log(decks);
+        };
+
+        fetchDecks();
+    }, [searchQuery]);
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container fluid>
@@ -32,6 +68,7 @@ function NavBar() {
                             placeholder="Course Code"
                             className="me-2"
                             aria-label="Search"
+                            onChange={(e) => setSearchQuery(e.target.value)}
                         />
                         <Button variant="outline-success">Search</Button>
                     </Form>
