@@ -1,8 +1,14 @@
 import "./App.css";
 import CardSection from "./components/CardSection";
+import NavBar from "./components/NavBar";
 
 function App() {
-    return <CardSection />;
+    return (
+        <>
+            <NavBar />
+            <CardSection />
+        </>
+    );
 }
 
 export default App;
