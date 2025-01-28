@@ -30,7 +30,7 @@ services:
 
     db:
         image: mongo:latest
-        container_name: mongo_db
+        container_name: mintflow_mongo_db
         ports:
             - "27017:27017"
         volumes:
