@@ -42,6 +42,10 @@ function NavBar() {
         e.preventDefault();
     };
 
+    const clearDecks = () => {
+        setSearchQuery("");
+    };
+
     return (
         <>
             <Navbar expand="lg" className="bg-body-tertiary">
@@ -77,7 +81,7 @@ function NavBar() {
                 </Container>
             </Navbar>
             <section id="searchResults">
-                <SearchResults decks={decks} />
+                <SearchResults decks={decks} onClearDecks={clearDecks} />
             </section>
         </>
     );

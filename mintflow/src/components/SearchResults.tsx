@@ -12,9 +12,10 @@ interface Deck {
 
 interface DeckProps {
     decks: Deck[];
+    onClearDecks: () => void;
 }
 
-function SearchResults({ decks }: DeckProps) {
+function SearchResults({ decks, onClearDecks }: DeckProps) {
     const { setCardData } = useCardData();
 
     const handleSelectDeck = async (topicName: string) => {
@@ -29,6 +30,7 @@ function SearchResults({ decks }: DeckProps) {
             }
             const data = await response.json();
             setCardData(data);
+            onClearDecks();
         } catch (error) {
             console.error("Error fetching decks:", error);
         }
